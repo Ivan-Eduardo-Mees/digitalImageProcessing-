@@ -1,7 +1,6 @@
 import javax.swing.*;
 import java.awt.event.ActionListener;
-import java.io.File;
-import java.util.EventListener;
+
 
 public class Menu {
 
@@ -13,12 +12,12 @@ public class Menu {
         makeMenu("File", "Save Image", new FIle().saveAlteredImage);
         makeMenu("File", "About", new FIle().about);
 
-//        makeMenu("Transformation", "Translation", null);
-//        makeMenu("Transformation", "Enlargement", null);
-//        makeMenu("Transformation", "Reduction",null);
-//        makeMenu("Transformation", "Mirroring", null);
-//        makeMenu("Transformation", "Rotation", null);
-//
+        makeMenu("Transformation", "Translation", new Transformation().translation);
+        makeMenu("Transformation", "Enlargement", new Transformation().enlargement);
+        makeMenu("Transformation", "Reduction",new Transformation().reduction);
+        makeMenu("Transformation", "Mirroring", new Transformation().mirroring);
+        makeMenu("Transformation", "Rotation", new Transformation().rotation);
+
 //        makeMenu("Pre-Processing", "GrayScale", null);
 //        makeMenu("Pre-Processing", "Glare", null);
 //        makeMenu("Pre-Processing", "Contrast", null);
