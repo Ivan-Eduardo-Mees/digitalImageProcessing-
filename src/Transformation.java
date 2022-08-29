@@ -1,47 +1,45 @@
+import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
-import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
 
 public class Transformation {
 
+    int x =0;
+    int y =0;
     ActionListener translation = e ->{
-        int width  = Constants.alteredImage.getWidth();
-        int height = Constants.alteredImage.getHeight();
-        int x = 150;
-        int y = 30;
 
+        x += Integer.parseInt(JOptionPane.showInputDialog(null,"inform o valor x"));
+        y += Integer.parseInt(JOptionPane.showInputDialog(null,"inform o valor y"));
 
-        BufferedImage translate = new BufferedImage(250, 150, BufferedImage.TYPE_INT_RGB);
+        BufferedImage translate = new BufferedImage(Constants.alteredImage.getWidth(), Constants.alteredImage.getHeight(), BufferedImage.TYPE_INT_RGB);
+        BufferedImage img =  new BufferedImage(Constants.alteredImage.getWidth(), Constants.alteredImage.getHeight(), BufferedImage.TYPE_INT_RGB);
 
-        double[][] matrizTranslate = { { 1, 0, x },
-                                       { 0, 1, y },
-                                       { 0, 0, 1  } };
+        double[][] matrizTranslate = {  { 1, 0, x },
+                                        { 0, 1, y },
+                                        { 0, 0, 1 } };
 
-        Graphics2D g = (Graphics2D) Constants.myPanelImg.getGraphics();
-        for (int j = 0; j < x; j++) {
-            for (int i = 0; i < y; i++) {
-                translate = applyProcess(Constants.alteredImage, matrizTranslate, x,y);
+        for (int j = 0; j < Constants.alteredImage.getHeight(); j++) {
+            for (int i = 0; i < Constants.alteredImage.getWidth(); i++) {
+                translate = applyProcess(img, matrizTranslate, i, j);
             }
         }
 
+        Graphics2D g = (Graphics2D) Constants.myPanelImg.getGraphics();
 
-        System.out.println(translate.getWidth() + "---" + translate.getHeight());
-        g.drawImage(translate, x, y, translate.getWidth(), translate.getHeight(), null);
-
+        g.drawImage(translate, 280, 150, 250, 150, null);
     };
 
-    public BufferedImage applyProcess(BufferedImage img, double[][] matrizTranslate, int x, int y) {
+    public BufferedImage applyProcess(BufferedImage img, double[][] mat, int x, int y) {
 
+        double newX = Math.round(x * mat[0][0] + y * mat[0][1] + mat[0][2]);
+        double newY = Math.round(x * mat[1][0] + y * mat[1][1] + mat[1][2]);
 
-                double out_x = Math.round(x * matrizTranslate[0][0] + x * matrizTranslate[0][1]);
-                double out_y = Math.round(y * matrizTranslate[1][0] + y * matrizTranslate[1][1]);
-
-                img.setRGB((int) out_x, (int) out_y, Constants.alteredImage.getRGB( x, y));
+        if (newX < Constants.alteredImage.getWidth() && newY < Constants.alteredImage.getHeight() && newX >= 0 && newY >= 0) {
+          img.setRGB((int) newX, (int) newY, Constants.alteredImage.getRGB(x, y));
+        }
 
         return img;
-
-
     }
 
     ActionListener enlargement = e ->{

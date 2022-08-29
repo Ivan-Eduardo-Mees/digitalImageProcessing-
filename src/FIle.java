@@ -3,6 +3,7 @@ import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import java.awt.*;
 import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
 import java.io.File;
 
 public class FIle {
@@ -15,18 +16,23 @@ public class FIle {
 
             if (returnValue == JFileChooser.APPROVE_OPTION) {
 //                Constants.defaultImg = ImageIO.read(FILE_CHOOSER.getSelectedFile());
-                Constants.defaultImg = ImageIO.read(new File("C:\\Users\\ivan_mees\\Ambiente\\school\\digitalImageProcessing\\digitalImageProcessing-\\phoca_thumb_l_image03_grd.png"));
+                Constants.defaultImg = ImageIO.read(new File("/home/ivanmees/IdeaProjects/digitalImageProcessing/phoca_thumb_l_image03_grd.png"));
                 Constants.alteredImage = Constants.defaultImg;
+
+
 
                 Graphics2D g = (Graphics2D) Constants.myPanelImg.getGraphics();
 
                 g.drawImage(Constants.defaultImg, 0, 150, 250, 150, null);
                 g.drawImage(Constants.alteredImage, 280, 150, 250, 150, null);
 
+
             }
         }catch (Exception exception) {
             System.out.println("Error Import Image" + exception);
         }
+
+
     };
 
 
