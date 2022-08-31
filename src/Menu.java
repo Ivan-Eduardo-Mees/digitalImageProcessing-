@@ -4,7 +4,7 @@ import java.awt.event.ActionListener;
 
 public class Menu {
 
-    private JMenuBar menuBar = new JMenuBar();
+    private final JMenuBar menuBar = new JMenuBar();
 
     public JMenuBar buildMenu() {
 
@@ -13,34 +13,27 @@ public class Menu {
         makeMenu("File", "About", new FIle().about);
 
         makeMenu("Transformation", "Translation", new Transformation().translation);
-        makeMenu("Transformation", "Enlargement", new Transformation().enlargement);
-        makeMenu("Transformation", "Reduction",new Transformation().reduction);
+        makeMenu("Transformation", "Enlargement", new Transformation().enlargementReduction);
+        makeMenu("Transformation", "Reduction",new Transformation().enlargementReduction);
         makeMenu("Transformation", "Mirroring", new Transformation().mirroring);
         makeMenu("Transformation", "Rotation", new Transformation().rotation);
 
-//        makeMenu("Pre-Processing", "GrayScale", null);
-//        makeMenu("Pre-Processing", "Glare", null);
-//        makeMenu("Pre-Processing", "Contrast", null);
+        makeMenu("Pre-Processing", "GrayScale", new PreProcessing().grayScale);
+        makeMenu("Pre-Processing", "Glare", new PreProcessing().glare);
+        makeMenu("Pre-Processing", "Contrast", new PreProcessing().contrast);
 
         return menuBar;
     }
 
 
     private void makeMenu(String menuName, String subMenuName, ActionListener actionListener){
-
         for(int i = 0; i < menuBar.getMenuCount(); i++){
             if(menuName.equals(menuBar.getMenu(i).getText())){
                 menuBar.getMenu(i).add(new JMenuItem(subMenuName)).addActionListener(actionListener);
                 return;
             }
         }
-
-        JMenu menu = new JMenu(menuName);
-        JMenuItem menuItem = new JMenuItem(subMenuName);
-        menuItem.addActionListener(actionListener);
-
-        menu.add(menuItem);
-
-        menuBar.add(menu);
+        menuBar.add(new JMenu(menuName));
+        makeMenu(menuName,subMenuName,actionListener);
     }
 }

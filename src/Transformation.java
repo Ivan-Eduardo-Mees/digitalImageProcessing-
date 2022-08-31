@@ -1,3 +1,4 @@
+import javax.net.ssl.CertPathTrustManagerParameters;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
@@ -6,95 +7,101 @@ import java.security.cert.CertPath;
 
 public class Transformation {
 
-    int x =0;
-    int y =0;
+
+    int contMirroring = 0;
+
     ActionListener translation = e ->{
 
-        x += Integer.parseInt(JOptionPane.showInputDialog(null,"inform o valor x"));
-        y += Integer.parseInt(JOptionPane.showInputDialog(null,"inform o valor y"));
-
-        BufferedImage translate = new BufferedImage(Constants.alteredImage.getWidth(), Constants.alteredImage.getHeight(), BufferedImage.TYPE_INT_RGB);
-        BufferedImage img =  new BufferedImage(Constants.alteredImage.getWidth(), Constants.alteredImage.getHeight(), BufferedImage.TYPE_INT_RGB);
+        int x = Integer.parseInt(JOptionPane.showInputDialog(null,"inform o valor x"));
+        int y = Integer.parseInt(JOptionPane.showInputDialog(null,"inform o valor y"));
 
         double[][] matrizTranslate = {  { 1, 0, x },
                                         { 0, 1, y },
                                         { 0, 0, 1 } };
 
-        for (int j = 0; j < Constants.alteredImage.getHeight(); j++) {
-            for (int i = 0; i < Constants.alteredImage.getWidth(); i++) {
-                translate = applyProcess(img, matrizTranslate, i, j);
-            }
-        }
-
-        Graphics2D g = (Graphics2D) Constants.myPanelImg.getGraphics();
-
-        g.drawImage(translate, 280, 150, 250, 150, null);
+        processImage(matrizTranslate);
     };
 
-    public BufferedImage applyProcess(BufferedImage img, double[][] mat, int x, int y) {
 
 
-        double newX = Math.round(x * mat[0][0] + x * mat[0][1] + mat[0][2]);
-        double newY = Math.round(y * mat[1][0] + y * mat[1][1] + mat[1][2]);
+    ActionListener enlargementReduction = e ->{
+
+        double enlargement = Double.parseDouble(JOptionPane.showInputDialog(null, "Enlargement"));
 
 
-        if (newX < Constants.alteredImage.getWidth() && newY < Constants.alteredImage.getHeight() && newX >= 0 && newY >= 0) {
-          img.setRGB((int) newX, (int) newY, Constants.alteredImage.getRGB(x, y));
-        }
-
-        return img;
-    }
-
-    ActionListener enlargement = e ->{
-
-        double enlargement = 0.5;
-
-
-        BufferedImage translate = new BufferedImage(Constants.alteredImage.getWidth(), Constants.alteredImage.getHeight(), BufferedImage.TYPE_INT_RGB);
-        BufferedImage img =  new BufferedImage(Constants.alteredImage.getWidth(), Constants.alteredImage.getHeight(), BufferedImage.TYPE_INT_RGB);
-
-        double[][] matrizEnlargement = {  { enlargement, 0, 0 },
+        double[][] matrixEnlargement = {{ enlargement, 0, 0 },
                                         { 0, enlargement, 0 },
                                         { 0, 0, 1 } };
 
+        processImage(matrixEnlargement);
+    };
 
-        for (int j = 0; j < Constants.alteredImage.getHeight(); ++j) {
-            for (int i = 0; i < Constants.alteredImage.getWidth(); ++i) {
-                translate = applyProcess2(img, matrizEnlargement, i,j,enlargement);
+
+    ActionListener mirroring = e ->{
+        double[][] matrixMirroring = new double[][]{};
+
+        switch (contMirroring) {
+            case 0 -> {
+                matrixMirroring = new double[][]{{-1, 0, Constants.alteredImage.getWidth()},
+                                                 {0, 1, 0},
+                                                 {0, 0, 1}};
+                contMirroring++;
+            }
+            case 1 -> {
+                matrixMirroring = new double[][]{{-1, 0, Constants.alteredImage.getWidth()},
+                                                 {0, -1, Constants.alteredImage.getHeight()},
+                                                 {0, 0, 1}};
+                contMirroring++;
+            }
+            case 2 -> {
+                matrixMirroring = new double[][]{{1, 0, 0},
+                                                 {0, -1, Constants.alteredImage.getHeight()},
+                                                 {0, 0, 1}};
+                contMirroring++;
+            }
+            case 3 -> {
+                matrixMirroring = new double[][]{{1, 0, 0},
+                                                 {0, 1, 0},
+                                                 {0, 0, 1}};
+                contMirroring = 0;
             }
         }
 
-        Graphics2D g = (Graphics2D) Constants.myPanelImg.getGraphics();
-
-        g.drawImage(translate, 280, 150, 250, 150, null);
-    };
-
-    public BufferedImage applyProcess2(BufferedImage img, double[][] mat, int x, int y,double enlarg) {
-
-
-
-        double out_x = Math.round(x * mat[0][0] + x * mat[0][1] + 1.0 * mat[0][2]);
-        double out_y = Math.round(y * mat[1][0] + y * mat[1][1] + 1.0 * mat[1][2]);
-
-
-        if (out_x < Constants.defaultImg.getWidth() && out_y < Constants.defaultImg.getHeight() && out_x >= 0 && out_y >= 0) {
-            img.setRGB((int) out_x, (int) out_y , Constants.alteredImage.getRGB(x, y));
-        }
-
-        return img;
-    }
-
-    ActionListener reduction = e ->{
-
-    };
-
-    ActionListener mirroring = e ->{
-
+        processImage(matrixMirroring);
     };
 
     ActionListener rotation = e ->{
+        double rotation = 45;
+
+
+        double[][] matrixRotation = {{ Math.cos(rotation), -Math.sin(rotation), 250 },
+                                        { Math.sin(rotation), Math.cos(rotation), 0 },
+                                        { 0, 0, 1 } };
+
+        processImage(matrixRotation);
 
     };
+
+    private void processImage(double[][] matrix){
+        BufferedImage img =  new BufferedImage(Constants.alteredImage.getWidth(), Constants.alteredImage.getHeight(), BufferedImage.TYPE_INT_RGB);
+
+
+
+        for (int y = 0; y < Constants.alteredImage.getHeight(); y++) {
+            for (int x = 0; x < Constants.alteredImage.getWidth(); x++) {
+                double newX = Math.round(x * matrix[0][0] + x * matrix[0][1] + matrix[0][2]);
+                double newY = Math.round(y * matrix[1][0] + y * matrix[1][1] + matrix[1][2]);
+
+                if (newX < Constants.alteredImage.getWidth() && newY < Constants.alteredImage.getHeight() && newX >= 0 && newY >= 0) {
+                    img.setRGB((int) newX, (int) newY, Constants.alteredImage.getRGB(x, y));
+                }
+            }
+        }
+
+        Constants.alteredImage = img;
+        Graphics2D g = (Graphics2D) Constants.myPanelImg.getGraphics();
+        g.drawImage(img, 0, 0, Constants.alteredImage.getWidth(), Constants.alteredImage.getHeight(), null);
+    }
 
 
 }

@@ -20,11 +20,10 @@ public class FIle {
                 Constants.alteredImage = Constants.defaultImg;
 
 
-
                 Graphics2D g = (Graphics2D) Constants.myPanelImg.getGraphics();
 
-                g.drawImage(Constants.defaultImg, 0, 150, 250, 150, null);
-                g.drawImage(Constants.alteredImage, 280, 150, 250, 150, null);
+//                g.drawImage(Constants.defaultImg, 0, 150, 250, 150, null);
+                g.drawImage(Constants.alteredImage, 0, 0, Constants.defaultImg.getWidth(), Constants.defaultImg.getHeight(), null);
 
 
             }
