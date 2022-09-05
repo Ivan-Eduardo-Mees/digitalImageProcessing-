@@ -1,10 +1,13 @@
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
 
 
-public class Menu {
+public class Menu{
 
     private final JMenuBar menuBar = new JMenuBar();
+
 
     public JMenuBar buildMenu() {
 
@@ -35,5 +38,20 @@ public class Menu {
         }
         menuBar.add(new JMenu(menuName));
         makeMenu(menuName,subMenuName,actionListener);
+    }
+
+    public BufferedImage prepareImage(){
+        BufferedImage img =  new BufferedImage(Constants.alteredImage.getWidth(), Constants.alteredImage.getHeight(), BufferedImage.TYPE_INT_RGB);
+
+        img.getGraphics().setColor(Constants.myPanelImg.getBackground());
+        img.getGraphics().fillRect(0,0,img.getWidth(),img.getHeight());
+
+        return img;
+    }
+
+    public void saveANDraw(BufferedImage img){
+        Constants.alteredImage = img;
+        Graphics2D g = (Graphics2D) Constants.myPanelImg.getGraphics();
+        g.drawImage(img, 580, 175, 500, 360, null);
     }
 }

@@ -3,10 +3,11 @@ import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import java.awt.*;
 import java.awt.event.ActionListener;
-import java.awt.image.BufferedImage;
+
 import java.io.File;
 
-public class FIle {
+
+public class FIle extends Menu{
 
 
     ActionListener listenerOpenImage = e -> {
@@ -15,23 +16,17 @@ public class FIle {
             int returnValue = FILE_CHOOSER.showOpenDialog(null);
 
             if (returnValue == JFileChooser.APPROVE_OPTION) {
-//                Constants.defaultImg = ImageIO.read(FILE_CHOOSER.getSelectedFile());
-                Constants.defaultImg = ImageIO.read(new File("/home/ivanmees/IdeaProjects/digitalImageProcessing/phoca_thumb_l_image03_grd.png"));
-                Constants.alteredImage = Constants.defaultImg;
+                Constants.originalImage = ImageIO.read(FILE_CHOOSER.getSelectedFile());
+                Constants.alteredImage = Constants.originalImage;
+                Graphics g = Constants.myPanelImg.getGraphics();
 
-
-                Graphics2D g = (Graphics2D) Constants.myPanelImg.getGraphics();
-
-//                g.drawImage(Constants.defaultImg, 0, 150, 250, 150, null);
-                g.drawImage(Constants.alteredImage, 0, 0, Constants.defaultImg.getWidth(), Constants.defaultImg.getHeight(), null);
-
+                g.drawImage(Constants.originalImage, 0, 175, 500,360, null);
+                g.drawImage(Constants.alteredImage, 580, 175, 500, 360, null);
 
             }
         }catch (Exception exception) {
             System.out.println("Error Import Image" + exception);
         }
-
-
     };
 
 

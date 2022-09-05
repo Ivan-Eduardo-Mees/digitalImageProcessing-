@@ -1,14 +1,10 @@
-import javax.net.ssl.CertPathTrustManagerParameters;
 import javax.swing.*;
-import java.awt.*;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
-import java.security.cert.CertPath;
-
-public class Transformation {
+public class Transformation extends Menu{
 
 
-    int contMirroring = 0;
+    private int contMirroring = 0;
 
     ActionListener translation = e ->{
 
@@ -28,7 +24,6 @@ public class Transformation {
 
         double enlargement = Double.parseDouble(JOptionPane.showInputDialog(null, "Enlargement"));
 
-
         double[][] matrixEnlargement = {{ enlargement, 0, 0 },
                                         { 0, enlargement, 0 },
                                         { 0, 0, 1 } };
@@ -45,25 +40,31 @@ public class Transformation {
                 matrixMirroring = new double[][]{{-1, 0, Constants.alteredImage.getWidth()},
                                                  {0, 1, 0},
                                                  {0, 0, 1}};
+                System.out.println("0");
                 contMirroring++;
             }
             case 1 -> {
+                matrixMirroring = new double[][]{{1, 0, 0},
+                        {0, -1, Constants.alteredImage.getHeight()},
+                        {0, 0, 1}};
+
+                contMirroring++;
+                System.out.println("1");
+            }
+            case 2 -> {
+
+                matrixMirroring = new double[][]{{-1, 0, Constants.alteredImage.getWidth()},
+                                                    {0, 1, 0},
+                                                    {0, 0, 1}};
+                contMirroring++;
+                System.out.println("2");
+            }
+            case 3 -> {
                 matrixMirroring = new double[][]{{-1, 0, Constants.alteredImage.getWidth()},
                                                  {0, -1, Constants.alteredImage.getHeight()},
                                                  {0, 0, 1}};
-                contMirroring++;
-            }
-            case 2 -> {
-                matrixMirroring = new double[][]{{1, 0, 0},
-                                                 {0, -1, Constants.alteredImage.getHeight()},
-                                                 {0, 0, 1}};
-                contMirroring++;
-            }
-            case 3 -> {
-                matrixMirroring = new double[][]{{1, 0, 0},
-                                                 {0, 1, 0},
-                                                 {0, 0, 1}};
                 contMirroring = 0;
+                System.out.println("3");
             }
         }
 
@@ -71,21 +72,38 @@ public class Transformation {
     };
 
     ActionListener rotation = e ->{
-        double rotation = 45;
+        double rotation = Double.parseDouble(JOptionPane.showInputDialog(null,"rotation"));
 
-
-        double[][] matrixRotation = {{ Math.cos(rotation), -Math.sin(rotation), 250 },
-                                        { Math.sin(rotation), Math.cos(rotation), 0 },
+        double[][] matrixRotation = {   { Math.cos(Math.toRadians(rotation)), -Math.sin(Math.toRadians(rotation)), 0 },
+                                        { Math.sin(Math.toRadians(rotation)), Math.cos(Math.toRadians(rotation)), 0},
                                         { 0, 0, 1 } };
 
-        processImage(matrixRotation);
+        BufferedImage img = prepareImage();
+
+        for (int y = 0; y < Constants.alteredImage.getHeight(); y++) {
+            for (int x = 0; x < Constants.alteredImage.getWidth(); x++) {
+                double halfX = Constants.alteredImage.getWidth() / 2.0;
+                double halfY = Constants.alteredImage.getHeight() / 2.0;
+                double tmpX = x - halfX;
+                double tmpY = y - halfY;
+                double newX = Math.round(tmpX * matrixRotation[0][0] + tmpY * matrixRotation[0][1] + matrixRotation[0][2]);
+                double nexY = Math.round(tmpX * matrixRotation[1][0] + tmpY * matrixRotation[1][1] + matrixRotation[1][2]);
+                newX += halfX;
+                nexY += halfY;
+
+                if (newX < Constants.alteredImage.getWidth() && nexY < Constants.alteredImage.getHeight() && newX >= 0 && nexY >= 0) {
+                    img.setRGB( x, y, Constants.alteredImage.getRGB((int) newX, (int) nexY));
+                }
+            }
+        }
+
+        saveANDraw(img);
 
     };
 
     private void processImage(double[][] matrix){
-        BufferedImage img =  new BufferedImage(Constants.alteredImage.getWidth(), Constants.alteredImage.getHeight(), BufferedImage.TYPE_INT_RGB);
 
-
+        BufferedImage img = prepareImage();
 
         for (int y = 0; y < Constants.alteredImage.getHeight(); y++) {
             for (int x = 0; x < Constants.alteredImage.getWidth(); x++) {
@@ -95,13 +113,11 @@ public class Transformation {
                 if (newX < Constants.alteredImage.getWidth() && newY < Constants.alteredImage.getHeight() && newX >= 0 && newY >= 0) {
                     img.setRGB((int) newX, (int) newY, Constants.alteredImage.getRGB(x, y));
                 }
+
             }
         }
 
-        Constants.alteredImage = img;
-        Graphics2D g = (Graphics2D) Constants.myPanelImg.getGraphics();
-        g.drawImage(img, 0, 0, Constants.alteredImage.getWidth(), Constants.alteredImage.getHeight(), null);
+        saveANDraw(img);
     }
-
 
 }

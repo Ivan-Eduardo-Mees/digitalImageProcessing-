@@ -1,12 +1,11 @@
 import javax.swing.*;
-import java.awt.*;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 
-public class PreProcessing {
+public class PreProcessing extends Menu{
 
     ActionListener grayScale = e -> {
-        BufferedImage image = new BufferedImage(Constants.alteredImage.getWidth(), Constants.alteredImage.getHeight(), BufferedImage.TYPE_INT_RGB);
+        BufferedImage image = prepareImage();
 
         for (int y = 0; y < Constants.alteredImage.getHeight(); y++) {
             for (int x = 0; x < Constants.alteredImage.getWidth(); x++) {
@@ -23,7 +22,7 @@ public class PreProcessing {
             }
         }
 
-        saveDrawImage(image);
+        saveANDraw(image);
     };
 
     ActionListener glare = e -> {
@@ -35,14 +34,14 @@ public class PreProcessing {
     };
 
     private void aplyGlareContrast(double contrast, double glare){
-        BufferedImage image = new BufferedImage(Constants.alteredImage.getWidth(), Constants.alteredImage.getHeight(), BufferedImage.TYPE_INT_RGB);
+        BufferedImage image = prepareImage();
 
         for (int y = 0; y < Constants.alteredImage.getHeight(); y++) {
             for (int x = 0; x < Constants.alteredImage.getWidth(); x++) {
 
                 int[] rgb = captureRGB(x,y);
 
-                for(int i =0; i< rgb.length; i++){
+                for(int i = 0; i < rgb.length; i++){
                     rgb[i] = (int) (contrast * rgb[i] + glare);
 
                     if(rgb[i] > 250){
@@ -52,12 +51,11 @@ public class PreProcessing {
                         rgb[i] = 0;
                     }
                 }
-
                 image.setRGB(x,y, joinRGB(rgb));
             }
         }
 
-        saveDrawImage(image);
+        saveANDraw(image);
     }
 
     private int[] captureRGB(int x, int y){
@@ -74,11 +72,5 @@ public class PreProcessing {
         int blue  = (rgb[2] & 0xFF) <<  0;
 
         return red | green | blue;
-    }
-
-    private void saveDrawImage(BufferedImage image){
-        Constants.alteredImage = image;
-        Graphics2D g = (Graphics2D) Constants.myPanelImg.getGraphics();
-        g.drawImage(image, 0, 0, Constants.alteredImage.getWidth(), Constants.alteredImage.getHeight(), null);
     }
 }
