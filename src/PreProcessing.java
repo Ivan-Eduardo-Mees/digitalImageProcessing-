@@ -26,14 +26,14 @@ public class PreProcessing extends Menu{
     };
 
     ActionListener glare = e -> {
-        aplyGlareContrast(1,Double.parseDouble(JOptionPane.showInputDialog(null,"glare")));
+        applyGlareContrast(1,Double.parseDouble(JOptionPane.showInputDialog(null,"glare")));
     };
 
     ActionListener contrast = e -> {
-        aplyGlareContrast(Double.parseDouble(JOptionPane.showInputDialog(null,"glare")),0);
+        applyGlareContrast(Double.parseDouble(JOptionPane.showInputDialog(null,"glare")),0);
     };
 
-    private void aplyGlareContrast(double contrast, double glare){
+    private void applyGlareContrast(double contrast, double glare){
         BufferedImage image = prepareImage();
 
         for (int y = 0; y < Constants.alteredImage.getHeight(); y++) {
@@ -44,8 +44,8 @@ public class PreProcessing extends Menu{
                 for(int i = 0; i < rgb.length; i++){
                     rgb[i] = (int) (contrast * rgb[i] + glare);
 
-                    if(rgb[i] > 250){
-                        rgb[i] = 250;
+                    if(rgb[i] > 255){
+                        rgb[i] = 255;
                     }
                     if(rgb[i] < 0){
                         rgb[i] = 0;
