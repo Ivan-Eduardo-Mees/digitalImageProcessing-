@@ -6,6 +6,7 @@ public class Transformation extends Menu{
 
     private int contMirroring = 0;
 
+    //I request x y to the user, make my matrix and call the processImage method
     ActionListener translation = e ->{
 
         int x = Integer.parseInt(JOptionPane.showInputDialog(null,"inform o valor x"));
@@ -19,19 +20,20 @@ public class Transformation extends Menu{
     };
 
 
-
+    //I request enlargement-reduction to the user, make my matrix and call the processImage method
     ActionListener enlargementReduction = e ->{
 
-        double enlargement = Double.parseDouble(JOptionPane.showInputDialog(null, "Enlargement"));
+        double enlargementReduction = Double.parseDouble(JOptionPane.showInputDialog(null, "Enlargement"));
 
-        double[][] matrixEnlargement = {{ enlargement, 0, 0 },
-                                        { 0, enlargement, 0 },
+        double[][] matrixEnlargement = {{ enlargementReduction, 0, 0 },
+                                        { 0, enlargementReduction, 0 },
                                         { 0, 0, 1 } };
 
         processImage(matrixEnlargement);
     };
 
 
+    //I'm mirroring my image in several directions, always making the matrix and sending it to the processImage method
     ActionListener mirroring = e ->{
         double[][] matrixMirroring = new double[][]{};
 
@@ -71,6 +73,9 @@ public class Transformation extends Menu{
         processImage(matrixMirroring);
     };
 
+    //request how much to rotate to my user, make my matrix and go through the entire image
+    //take half of my x and y I make my x minus half and apply the calculation on the matrix after that I add the x and y again, thus compensating for the image displacement
+    //after that I draw
     ActionListener rotation = e ->{
         double rotation = Double.parseDouble(JOptionPane.showInputDialog(null,"rotation"));
 
@@ -87,12 +92,12 @@ public class Transformation extends Menu{
                 double tmpX = x - halfX;
                 double tmpY = y - halfY;
                 double newX = Math.round(tmpX * matrixRotation[0][0] + tmpY * matrixRotation[0][1] + matrixRotation[0][2]);
-                double nexY = Math.round(tmpX * matrixRotation[1][0] + tmpY * matrixRotation[1][1] + matrixRotation[1][2]);
+                double newY = Math.round(tmpX * matrixRotation[1][0] + tmpY * matrixRotation[1][1] + matrixRotation[1][2]);
                 newX += halfX;
-                nexY += halfY;
+                newY += halfY;
 
-                if (newX < Constants.alteredImage.getWidth() && nexY < Constants.alteredImage.getHeight() && newX >= 0 && nexY >= 0) {
-                    img.setRGB( x, y, Constants.alteredImage.getRGB((int) newX, (int) nexY));
+                if (newX < Constants.alteredImage.getWidth() && newY < Constants.alteredImage.getHeight() && newX >= 0 && newY >= 0) {
+                    img.setRGB((int) newX,(int) newY, Constants.alteredImage.getRGB(x, y));
                 }
             }
         }
@@ -100,7 +105,7 @@ public class Transformation extends Menu{
         saveANDraw(img);
 
     };
-
+    //run through my entire image applying the calculations on top of the matrix thus discovering the new y and x after that I draw the image
     private void processImage(double[][] matrix){
 
         BufferedImage img = prepareImage();
@@ -113,7 +118,6 @@ public class Transformation extends Menu{
                 if (newX < Constants.alteredImage.getWidth() && newY < Constants.alteredImage.getHeight() && newX >= 0 && newY >= 0) {
                     img.setRGB((int) newX, (int) newY, Constants.alteredImage.getRGB(x, y));
                 }
-
             }
         }
 

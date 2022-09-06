@@ -8,7 +8,7 @@ public class Menu{
 
     private final JMenuBar menuBar = new JMenuBar();
 
-
+    //create my menuBar using the makeMenu method
     public JMenuBar buildMenu() {
 
         makeMenu("File", "Open Image", new FIle().listenerOpenImage);
@@ -28,7 +28,7 @@ public class Menu{
         return menuBar;
     }
 
-
+    //see if the menu is already created, if not, I call the function again adding the menu so that I can place the menu item
     private void makeMenu(String menuName, String subMenuName, ActionListener actionListener){
         for(int i = 0; i < menuBar.getMenuCount(); i++){
             if(menuName.equals(menuBar.getMenu(i).getText())){
@@ -40,6 +40,7 @@ public class Menu{
         makeMenu(menuName,subMenuName,actionListener);
     }
 
+    //I prepare an image to be processed, a method common to the menus
     public BufferedImage prepareImage(){
         BufferedImage img =  new BufferedImage(Constants.alteredImage.getWidth(), Constants.alteredImage.getHeight(), BufferedImage.TYPE_INT_RGB);
 
@@ -48,7 +49,7 @@ public class Menu{
 
         return img;
     }
-
+    //I save my image and draw it
     public void saveANDraw(BufferedImage img){
         Constants.alteredImage = img;
         Graphics2D g = (Graphics2D) Constants.myPanelImg.getGraphics();

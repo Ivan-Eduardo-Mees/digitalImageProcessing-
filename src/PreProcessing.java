@@ -3,7 +3,7 @@ import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 
 public class PreProcessing extends Menu{
-
+    //apply grayScale
     ActionListener grayScale = e -> {
         BufferedImage image = prepareImage();
 
@@ -24,15 +24,16 @@ public class PreProcessing extends Menu{
 
         saveANDraw(image);
     };
-
+    //call applyGlareContrast, passing 1 fixed in contrast
     ActionListener glare = e -> {
         applyGlareContrast(1,Double.parseDouble(JOptionPane.showInputDialog(null,"glare")));
     };
-
+    //call applyGlareContrast, passing 0 fixed in glare
     ActionListener contrast = e -> {
-        applyGlareContrast(Double.parseDouble(JOptionPane.showInputDialog(null,"glare")),0);
+        applyGlareContrast(Double.parseDouble(JOptionPane.showInputDialog(null,"contrast")),0);
     };
 
+    //metodo que faz o aplique de contraste e glare
     private void applyGlareContrast(double contrast, double glare){
         BufferedImage image = prepareImage();
 
@@ -58,6 +59,7 @@ public class PreProcessing extends Menu{
         saveANDraw(image);
     }
 
+    //capture the red green and blue of the rgb and return an array of integers
     private int[] captureRGB(int x, int y){
         int r = (Constants.alteredImage.getRGB(x,y) >> 16) & 0xFF;
         int g = (Constants.alteredImage.getRGB(x,y) >>  8) & 0xFF;
@@ -66,6 +68,7 @@ public class PreProcessing extends Menu{
         return new int[] {r,g,b};
     }
 
+    //join the red green and blue in rgb and return an integer
     private int joinRGB(int[] rgb){
         int red   = (rgb[0] & 0xFF) << 16;
         int green = (rgb[1] & 0xFF) <<  8;

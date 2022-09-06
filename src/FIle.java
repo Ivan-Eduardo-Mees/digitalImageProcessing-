@@ -9,7 +9,7 @@ import java.io.File;
 
 public class FIle extends Menu{
 
-
+    //I open my image, put it in my image control variables and draw on canvas
     ActionListener listenerOpenImage = e -> {
         try {
             JFileChooser FILE_CHOOSER = new JFileChooser();
@@ -30,6 +30,7 @@ public class FIle extends Menu{
     };
 
 
+    //saved my changed image. If you don't put any . informing the extension of the image I put .jpg
     ActionListener saveAlteredImage = e -> {
         try {
             JFileChooser fileChooser = new JFileChooser();

@@ -3,7 +3,8 @@ import java.awt.*;
 
 public class App extends JFrame{
 
-    public void configurarFrame() {
+    //configure canvas from JFrame class
+    public void configureFrame() {
 
         Container container = getContentPane();
         container.add(Constants.myPanelImg, BorderLayout.CENTER);
@@ -20,6 +21,6 @@ public class App extends JFrame{
 
     public static void main(String[] args) {
         App app = new App();
-        app.configurarFrame();
+        app.configureFrame();
     }
 }
