@@ -25,6 +25,12 @@ public class Menu{
         makeMenu("Pre-Processing", "Glare", new PreProcessing().glare);
         makeMenu("Pre-Processing", "Contrast", new PreProcessing().contrast);
 
+        makeMenu("Threshold", "Threshold", new Threshold().threshold);
+
+        makeMenu("LowPassFilter", "Average", new LowPassFilter().Average);
+        makeMenu("LowPassFilter", "Fashion", new LowPassFilter().Fashion);
+        makeMenu("LowPassFilter", "median", new LowPassFilter().median);
+        makeMenu("LowPassFilter", "Gaussian", new LowPassFilter().Gaussian);
         return menuBar;
     }
 
@@ -54,5 +60,24 @@ public class Menu{
         Constants.alteredImage = img;
         Graphics2D g = (Graphics2D) Constants.myPanelImg.getGraphics();
         g.drawImage(img, 580, 175, 500, 360, null);
+    }
+
+
+    //capture the red green and blue of the rgb and return an array of integers
+    public int[] captureRGB(int x, int y){
+        int r = (Constants.alteredImage.getRGB(x,y) >> 16) & 0xFF;
+        int g = (Constants.alteredImage.getRGB(x,y) >>  8) & 0xFF;
+        int b = (Constants.alteredImage.getRGB(x,y) >>  0) & 0xFF;
+
+        return new int[] {r,g,b};
+    }
+
+    //join the red green and blue in rgb and return an integer
+    public int joinRGB(int[] rgb){
+        int red   = (rgb[0] & 0xFF) << 16;
+        int green = (rgb[1] & 0xFF) <<  8;
+        int blue  = (rgb[2] & 0xFF) <<  0;
+
+        return red | green | blue;
     }
 }

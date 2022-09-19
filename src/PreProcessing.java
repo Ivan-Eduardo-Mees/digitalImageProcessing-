@@ -59,21 +59,4 @@ public class PreProcessing extends Menu{
         saveANDraw(image);
     }
 
-    //capture the red green and blue of the rgb and return an array of integers
-    private int[] captureRGB(int x, int y){
-        int r = (Constants.alteredImage.getRGB(x,y) >> 16) & 0xFF;
-        int g = (Constants.alteredImage.getRGB(x,y) >>  8) & 0xFF;
-        int b = (Constants.alteredImage.getRGB(x,y) >>  0) & 0xFF;
-
-        return new int[] {r,g,b};
-    }
-
-    //join the red green and blue in rgb and return an integer
-    private int joinRGB(int[] rgb){
-        int red   = (rgb[0] & 0xFF) << 16;
-        int green = (rgb[1] & 0xFF) <<  8;
-        int blue  = (rgb[2] & 0xFF) <<  0;
-
-        return red | green | blue;
-    }
 }
