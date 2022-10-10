@@ -4,6 +4,7 @@ import java.awt.image.BufferedImage;
 
 public class Threshold extends Menu{
 
+    //I request the threshold I scroll through my image and apply the grayscale and do the crop
     ActionListener threshold = e -> {
         BufferedImage thresholdApply = prepareImage();
         int cut = Integer.parseInt(JOptionPane.showInputDialog(null, "threshold cut"));
@@ -14,13 +15,13 @@ public class Threshold extends Menu{
                 int[] rgb = captureRGB(x,y);
 
                 if((rgb[0] + rgb[1] + rgb[2])/3 >= cut){
-                    rgb[0] = 0;
-                    rgb[1] = 0;
-                    rgb[2] = 0;
-                }else{
                     rgb[0] = 255;
                     rgb[1] = 255;
                     rgb[2] = 255;
+                }else{
+                    rgb[0] = 0;
+                    rgb[1] = 0;
+                    rgb[2] = 0;
                 }
 
                 thresholdApply.setRGB(x,y,joinRGB(rgb));

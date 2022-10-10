@@ -31,6 +31,10 @@ public class Menu{
         makeMenu("LowPassFilter", "Fashion", new LowPassFilter().Fashion);
         makeMenu("LowPassFilter", "median", new LowPassFilter().median);
         makeMenu("LowPassFilter", "Gaussian", new LowPassFilter().Gaussian);
+
+        makeMenu("EdgeDetection", "roberts", new EdgeDetection().roberts);
+        makeMenu("EdgeDetection", "sobel", new EdgeDetection().sobel);
+        makeMenu("EdgeDetection", "robinson", new EdgeDetection().robinson);
         return menuBar;
     }
 
@@ -57,6 +61,8 @@ public class Menu{
     }
     //I save my image and draw it
     public void saveANDraw(BufferedImage img){
+        Constants.modifyImages.add(img);
+
         Constants.alteredImage = img;
         Graphics2D g = (Graphics2D) Constants.myPanelImg.getGraphics();
         g.drawImage(img, 580, 175, 500, 360, null);
