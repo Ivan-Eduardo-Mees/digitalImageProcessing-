@@ -4,6 +4,8 @@ import java.util.*;
 
 public class LowPassFilter extends Menu{
 
+
+//    loop through my image adding the rgb values ​​after that /9
     ActionListener Average = e -> {
 
         BufferedImage avarageAply = prepareImage();
@@ -35,6 +37,7 @@ public class LowPassFilter extends Menu{
         saveANDraw(avarageAply);
     };
 
+//    I go through my image and get it by calling the getFashion method to get the value that occurs most in rgb
     ActionListener Fashion = e -> {
         ArrayList<Integer> r = new ArrayList<>();
         ArrayList<Integer> g = new ArrayList<>();
@@ -68,7 +71,7 @@ public class LowPassFilter extends Menu{
         saveANDraw(fashionApply);
 
     };
-
+//I go through the image putting the values ​​in the array after that I do the sort and then I get the middle one
     ActionListener median = e -> {
 
         ArrayList<Integer> r = new ArrayList<>();
@@ -105,7 +108,7 @@ public class LowPassFilter extends Menu{
         }
         saveANDraw(medianApply);
     };
-
+    //I scroll through the image applying the convolution of the gaus mask
     ActionListener Gaussian = e -> {
 
         BufferedImage gausApply = prepareImage();
@@ -141,7 +144,7 @@ public class LowPassFilter extends Menu{
 
         saveANDraw(gausApply);
     };
-
+//I see what is the most repeated value among the array that was passed
     private int getFashion(ArrayList<Integer> array){
         int thisGuy = 0;
         int testGuy;

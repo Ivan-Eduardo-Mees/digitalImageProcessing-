@@ -18,8 +18,9 @@ public class FIle extends Menu{
             if (returnValue == JFileChooser.APPROVE_OPTION) {
                 Constants.originalImage = ImageIO.read(FILE_CHOOSER.getSelectedFile());
                 Constants.alteredImage = Constants.originalImage;
-                Graphics g = Constants.myPanelImg.getGraphics();
+                Constants.modifyImages.add(Constants.originalImage);
 
+                Graphics g = Constants.myPanelImg.getGraphics();
                 g.drawImage(Constants.originalImage, 0, 175, 500,360, null);
                 g.drawImage(Constants.alteredImage, 580, 175, 500, 360, null);
 

@@ -33,7 +33,7 @@ public class PreProcessing extends Menu{
         applyGlareContrast(Double.parseDouble(JOptionPane.showInputDialog(null,"contrast")),0);
     };
 
-    //metodo que faz o aplique de contraste e glare
+    //method of applying contrast and brightness
     private void applyGlareContrast(double contrast, double glare){
         BufferedImage image = prepareImage();
 
