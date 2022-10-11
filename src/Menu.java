@@ -35,6 +35,11 @@ public class Menu{
         makeMenu("EdgeDetection", "roberts", new EdgeDetection().roberts);
         makeMenu("EdgeDetection", "sobel", new EdgeDetection().sobel);
         makeMenu("EdgeDetection", "robinson", new EdgeDetection().robinson);
+
+        makeMenu("MathematicalMorphology", "dilation", new MathematicalMorphology().dilation);
+        makeMenu("MathematicalMorphology", "erosion", new MathematicalMorphology().erosion);
+        makeMenu("MathematicalMorphology", "opening", new MathematicalMorphology().opening);
+        makeMenu("MathematicalMorphology", "closure", new MathematicalMorphology().closure);
         return menuBar;
     }
 

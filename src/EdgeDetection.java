@@ -1,144 +1,82 @@
-import jdk.jfr.Threshold;
-
 import javax.swing.*;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 
 public class EdgeDetection extends Menu{
 
+    //make roberts edge detection calling madeRobertsSobel method
     ActionListener roberts = e -> {
         int[][] xKernel = { {0,0,0},
-                            {0,-1,0},
-                            {0,0,1}
-                          };
+                {0,-1,0},
+                {0,0,1}
+        };
 
         int[][] yKernel = { {0,0,0},
-                            {0,0,-1},
-                            {0,1,0}
-                          };
+                {0,0,-1},
+                {0,1,0}
+        };
 
-        Double gx;
-        Double gy;
-        Double g;
-        Double threshold = Double.parseDouble(JOptionPane.showInputDialog(null,"threshold"));
-
-
-        BufferedImage robertsApply = prepareImage();
-
-
-        for(int y = 1; y < robertsApply.getHeight()-1; y++){
-            for(int x = 1; x < robertsApply.getWidth()-1; x++){
-                gx = 0.0;
-                gy = 0.0;
-                g  = 0.0;
-                int graySclale =0;
-                for(int i = 0; i < 3; i++){
-                    for(int j = 0; j < 3; j++){
-                        int[] getRGB = captureRGB(x+(i-1),y+(j-1));
-                        graySclale = (getRGB[0] + getRGB[1] + getRGB [2])/3;
-                        gx += graySclale * xKernel[i][j];
-                        gy += graySclale * yKernel[i][j];
-                    }
-                }
-                g = Math.sqrt(Math.pow(gx,2) + Math.pow(gy,2));
-                graySclale = joinRGB(new int[]{0,0,0});
-                if(g > threshold){
-                    graySclale = joinRGB(new int[]{255,255,255});
-                }
-                robertsApply.setRGB(x,y,graySclale);
-            }
-        }
-
-        saveANDraw(robertsApply);
+        madeRobertsSobel(xKernel, yKernel);
 
     };
 
+    //make sobel edge detection calling madeRobertsSobel method
     ActionListener sobel = e -> {
         int[][] xKernel = { {1,0,-1},
-                            {2,0,-2},
-                            {1,0,-1}
-                          };
+                {2,0,-2},
+                {1,0,-1}
+        };
 
         int[][] yKernel = { {1,2,1},
-                            {0,0,0},
-                            {-1,-2,-1}
-                          };
+                {0,0,0},
+                {-1,-2,-1}
+        };
 
-        Double gx;
-        Double gy;
-        Double g;
-        Double threshold = Double.parseDouble(JOptionPane.showInputDialog(null,"threshold"));
+        madeRobertsSobel(xKernel, yKernel);
 
-
-        BufferedImage sobelApply = prepareImage();
-
-
-        for(int y = 1; y < sobelApply.getHeight()-1; y++){
-            for(int x = 1; x < sobelApply.getWidth()-1; x++){
-                gx = 0.0;
-                gy = 0.0;
-                g  = 0.0;
-                int graySclale =0;
-                for(int i = 0; i < 3; i++){
-                    for(int j = 0; j < 3; j++){
-                        int[] getRGB = captureRGB(x+(i-1),y+(j-1));
-                        graySclale = (getRGB[0] + getRGB[1] + getRGB [2])/3;
-                        gx += graySclale * xKernel[i][j];
-                        gy += graySclale * yKernel[i][j];
-                    }
-                }
-                g = Math.sqrt(Math.pow(gx,2) + Math.pow(gy,2));
-                graySclale = joinRGB(new int[]{0,0,0});
-                if(g > threshold){
-                    graySclale = joinRGB(new int[]{255,255,255});
-                }
-                sobelApply.setRGB(x,y,graySclale);
-            }
-        }
-
-        saveANDraw(sobelApply);
     };
 
+    //made robinson edge detection
     ActionListener robinson = e -> {
         int[][] mask1 = { {1,0,-1},
-                          {2,0,-2},
-                          {1,0,-1}
-                        };
+                {2,0,-2},
+                {1,0,-1}
+        };
 
         int[][] mask2 = { {0,-1,-2},
-                          {1,0,-1},
-                          {2,1,0}
-                        };
+                {1,0,-1},
+                {2,1,0}
+        };
 
         int[][] mask3 = { {-1,-2,-1},
-                          {0,0,0},
-                          {1,2,1}
-                        };
+                {0,0,0},
+                {1,2,1}
+        };
 
         int[][] mask4 = { {-2,-1,0},
-                          {-1,0,1},
-                          {0,1,2}
-                        };
+                {-1,0,1},
+                {0,1,2}
+        };
 
         int[][] mask5 = { {-1,0,1},
-                          {-2,0,2},
-                          {-1,0,1}
-                        };
+                {-2,0,2},
+                {-1,0,1}
+        };
 
         int[][] mask6 = { {0,1,2},
-                          {-1,0,1},
-                          {-2,-1,0}
-                        };
+                {-1,0,1},
+                {-2,-1,0}
+        };
 
         int[][] mask7 = { {1,2,1},
-                          {0,0,0},
-                          {-1,-2,-1}
-                        };
+                {0,0,0},
+                {-1,-2,-1}
+        };
 
         int[][] mask8 = { {2,1,0},
-                          {1,0,-1},
-                          {0,-1,-2}
-                        };
+                {1,0,-1},
+                {0,-1,-2}
+        };
 
         Double g;
         Double gm1;
@@ -173,9 +111,9 @@ public class EdgeDetection extends Menu{
                         gm8 += graySclale * mask8[i][j];
                     }
                 }
-                
+
                 g = gm1;
-                
+
                 if(gm2 > g)
                     g = gm2;
                 if(gm3 > g)
@@ -190,9 +128,9 @@ public class EdgeDetection extends Menu{
                     g = gm7;
                 if(gm8 > g)
                     g = gm8;
-                
+
                 graySclale = joinRGB(new int[]{0,0,0});
-                
+
                 if(g > threshold){
                     graySclale = joinRGB(new int[]{255,255,255});
                 }
@@ -200,8 +138,48 @@ public class EdgeDetection extends Menu{
                 robinsionApply.setRGB(x,y,graySclale);
             }
         }
-        
+
         saveANDraw(robinsionApply);
 
     };
+
+    //made edge detection -- robert and sobel only change matrix
+    private void madeRobertsSobel(int[][] xKernel, int[][] yKernel){
+
+        Double gx;
+        Double gy;
+        Double g;
+        Double threshold = Double.parseDouble(JOptionPane.showInputDialog(null,"threshold"));
+
+        BufferedImage sobelApply = prepareImage();
+
+
+        for(int y = 1; y < sobelApply.getHeight()-1; y++){
+            for(int x = 1; x < sobelApply.getWidth()-1; x++){
+                gx = 0.0;
+                gy = 0.0;
+                g  = 0.0;
+                int graySclale =0;
+                for(int i = 0; i < 3; i++){
+                    for(int j = 0; j < 3; j++){
+                        int[] getRGB = captureRGB(x+(i-1),y+(j-1));
+                        graySclale = (getRGB[0] + getRGB[1] + getRGB [2])/3;
+                        gx += graySclale * xKernel[i][j];
+                        gy += graySclale * yKernel[i][j];
+                    }
+                }
+
+                g = Math.sqrt(Math.pow(gx,2) + Math.pow(gy,2));
+                graySclale = joinRGB(new int[]{0,0,0});
+
+                if(g > threshold){
+                    graySclale = joinRGB(new int[]{255,255,255});
+                }
+
+                sobelApply.setRGB(x,y,graySclale);
+            }
+        }
+
+        saveANDraw(sobelApply);
+    }
 }
