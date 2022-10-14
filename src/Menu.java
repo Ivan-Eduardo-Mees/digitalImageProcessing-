@@ -40,6 +40,7 @@ public class Menu{
         makeMenu("MathematicalMorphology", "erosion", new MathematicalMorphology().erosion);
         makeMenu("MathematicalMorphology", "opening", new MathematicalMorphology().opening);
         makeMenu("MathematicalMorphology", "closure", new MathematicalMorphology().closure);
+        makeMenu("MathematicalMorphology", "hilditch", new MathematicalMorphology().hilditch);
         return menuBar;
     }
 
@@ -67,9 +68,11 @@ public class Menu{
     //I save my image and draw it
     public void saveANDraw(BufferedImage img){
         Constants.modifyImages.add(img);
-
         Constants.alteredImage = img;
+
+        BufferedImage cleanImage = prepareImage();
         Graphics2D g = (Graphics2D) Constants.myPanelImg.getGraphics();
+        g.drawImage(cleanImage, 580, 175, 500, 360, null);
         g.drawImage(img, 580, 175, 500, 360, null);
     }
 
