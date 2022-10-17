@@ -22,7 +22,7 @@ public class FIle extends Menu{
 
                 Graphics g = Constants.myPanelImg.getGraphics();
                 g.drawImage(Constants.originalImage, 0, 175, 500,360, null);
-                g.drawImage(Constants.alteredImage, 580, 175, 500, 360, null);
+                g.drawImage(Constants.alteredImage, 570, 175, 500, 360, null);
 
             }
         }catch (Exception exception) {

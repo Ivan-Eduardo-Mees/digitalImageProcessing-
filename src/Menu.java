@@ -73,7 +73,7 @@ public class Menu{
         BufferedImage cleanImage = prepareImage();
         Graphics2D g = (Graphics2D) Constants.myPanelImg.getGraphics();
         g.drawImage(cleanImage, 580, 175, 500, 360, null);
-        g.drawImage(img, 580, 175, 500, 360, null);
+        g.drawImage(img, 570, 175, 500, 360, null);
     }
 
 
