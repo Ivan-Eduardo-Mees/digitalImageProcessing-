@@ -12,6 +12,7 @@ public class MathematicalMorphology extends Menu{
 
 
     ActionListener dilation = e -> {
+        Map<Integer, Integer> tradeXY = new TreeMap<>();
         madeDilationErosion(true);
     };
 
@@ -161,10 +162,14 @@ public class MathematicalMorphology extends Menu{
 //        System.out.println(image.length);
 //        System.out.println(image[image.length-1].length);
         int count = 0;
+        ArrayList<Integer> trocarX = new ArrayList();;
+        ArrayList<Integer> trocarY =  new ArrayList();;
         while (again){
 
             again = false;
-            count++;
+            count=0;
+            trocarX = new ArrayList();
+            trocarY = new ArrayList();
             for(int y =0; y < image.length; y++){
                 for(int x =0; x < image[y].length; x++){
 
@@ -202,7 +207,7 @@ public class MathematicalMorphology extends Menu{
                     int p2 = 0;
                     int p4 = 0;
                     int p6 = 0;
-                    int p8=0;
+                    int p8 = 0;
 
 
 
@@ -212,24 +217,31 @@ public class MathematicalMorphology extends Menu{
                     p8  = getBinary(y,x-1,image);
 
 
-//                    if(getBinary(y,x,image) == 1) {
-                        if (2 <= b1(y,x, image) && b1(y, x, image) <= 6) {
-                            if (p1( y,x, image) == 1) {
-                                if (p2 != 1 || p4 != 1 || p8 != 1 || p1(y - 1,x, image) != 1) {
-                                    if ((p2 * p4 * p6 == 0) || p1(y,x + 1, image) != 1) {
-//                                        count++;
+
+                    if(getBinary(y,x,image) == 1) {//cond1
+                        if (2 <= b1(y,x, image) && b1(y, x, image) <= 6) {//cond2
+                            if (p1( y,x, image) == 1) {//cond3
+                                if ((p2 * p4 * p8 == 0)|| p1(y - 1,x, image) != 1) {//cond4
+                                    if ((p2 * p4 * p6 == 0) || p1(y,x + 1, image) != 1) {//cond5
+                                        count++;
                                         again = true;
-                                        image[y][x] = 0;
-//                                        System.out.println("y: "+y + "x: "+x);
+                                        trocarX.add(x);
+                                        trocarY.add(y);
                                     }
                                 }
                             }
                         }
-//                    }
+                    }
 
                 }
             }
-            System.out.println(count);
+
+//            System.out.println(count);
+
+            for(int k =0; k < trocarX.size(); k++){
+//                System.out.println("entrou");
+                image[trocarY.get(k)][trocarX.get(k)] = 0;
+            }
 
 //            System.out.println(count);
 
@@ -363,8 +375,6 @@ public class MathematicalMorphology extends Menu{
 
     public int p1(int y, int x,int[][] image){
         Integer count = 0;
-        try{
-
 
 //            int[] getRGBP2 = captureRGBhilditch(x,y-1,image);
 //            int[] getRGBP3 = captureRGBhilditch(x+1,y-1,image);
@@ -437,23 +447,12 @@ public class MathematicalMorphology extends Menu{
                 count++;
             if(p9==0 && p2==1)
                 count++;
-        }catch (Exception e){
-            System.out.println("entrou");
-        }
+
 
 
         return count;
     }
 
-
-
-    public int[] captureRGBhilditch(int x, int y, BufferedImage image){
-        int r = (image.getRGB(x,y) >> 16) & 0xFF;
-        int g = (image.getRGB(x,y) >>  8) & 0xFF;
-        int b = (image.getRGB(x,y) >>  0) & 0xFF;
-
-        return new int[] {r,g,b};
-    }
 
     public static int[][] copyImageToBinary(BufferedImage image) {
         int[][] imageData = new int[image.getHeight()][image.getWidth()];
@@ -481,7 +480,6 @@ public class MathematicalMorphology extends Menu{
                 } else {
                     image.setRGB(x, y, Color.WHITE.getRGB());
                 }
-
 
             }
         }
