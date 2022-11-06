@@ -86,17 +86,9 @@ public class MathematicalMorphology extends Menu{
         saveANDraw(erosionDilationApply);
     }
 
+    //made hilditch
     ActionListener hilditch = e -> {
-        BufferedImage hilditchApply =prepareImage();
-//        BufferedImage hilditchApply =  new BufferedImage(Constants.alteredImage.getWidth(), Constants.alteredImage.getHeight(), BufferedImage.TYPE_BYTE_BINARY);
-
-//        Graphics biG = hilditchApply.getGraphics();
-
-//        biG.drawImage(Constants.alteredImage,0,0,null);
-
-
-
-
+        BufferedImage hilditchApply = prepareImage();
 
         for(int y = 1; y < hilditchApply.getHeight()-1; y++){
             for(int x = 1; x < hilditchApply.getWidth()-1; x++){
@@ -104,63 +96,9 @@ public class MathematicalMorphology extends Menu{
             }
         }
 
-
         int[][] image = copyImageToBinary(hilditchApply);
-//
 
-
-//        for(int y=0; y< image.length; y++){
-//            for(int x=0; x< image[y].length; x++){
-//                System.out.print(image[y][x]);
-//            }
-//            System.out.println();
-//        }
-//
-//
-
-//        int[] a = new int[2];
-//        int[] g = hilditchApply.getRaster().getPixel(1,1,captureRGBhilditch(1,1,hilditchApply));
-//
-//        hilditchApply.getClass().getp
-//        System.out.println(g.length);
-//        System.out.println(g[0]);
-//        System.out.println(g[1]);
-//        System.out.println(g[2]);
-//
-//        for(int y = 1; y < hilditchApply.getHeight()-1; y++){
-//            for(int x = 1; x < hilditchApply.getWidth()-1; x++){
-////                System.out.println(hilditchApply.);
-//            }
-//        }
-
-//        hilditchApply = Constants.alteredImage;
-//        BufferedImage hilditchApply =  new BufferedImage(3, 3, BufferedImage.TYPE_INT_RGB);
-//        hilditchApply.setRGB(0,0, joinRGB(new int[]{255,255,255}));
-//        hilditchApply.setRGB(1,0, joinRGB(new int[]{0,0,0}));
-//        hilditchApply.setRGB(2,0, joinRGB(new int[]{0,0,0}));
-//
-//        hilditchApply.setRGB(0,1, joinRGB(new int[]{255,255,255}));
-//        hilditchApply.setRGB(1,1, joinRGB(new int[]{255,255,255}));
-//        hilditchApply.setRGB(2,1, joinRGB(new int[]{255,255,255}));
-//
-//        hilditchApply.setRGB(0,2, joinRGB(new int[]{255,255,255}));
-//        hilditchApply.setRGB(1,2, joinRGB(new int[]{255,255,255}));
-//        hilditchApply.setRGB(2,2, joinRGB(new int[]{255,255,255}));
-//
-//        Constants.alteredImage = hilditchApply;
-//
-//        System.out.println(p1(1,1));
-
-//        Integer graySclale = 0;
-//
-//        Integer graySclaleP2 = 0;
-//        Integer graySclaleP4 = 0;
-//        Integer graySclaleP6 = 0;
-//        Integer graySclaleP8 = 0;
-//
         boolean again = true;
-//        System.out.println(image.length);
-//        System.out.println(image[image.length-1].length);
         int count = 0;
         ArrayList<Integer> trocarX = new ArrayList();;
         ArrayList<Integer> trocarY =  new ArrayList();;
@@ -172,37 +110,6 @@ public class MathematicalMorphology extends Menu{
             trocarY = new ArrayList();
             for(int y =0; y < image.length; y++){
                 for(int x =0; x < image[y].length; x++){
-
-//                    int[] p11 = new int[1];
-//                    int[] p22 = new int[1];
-//                    int[] p44 = new int[1];
-//                    int[] p66 = new int[1];
-//                    int[] p88 = new int[1];
-//
-//                    p11 = hilditchApply.getRaster().getPixel(x,y,p11);
-//                    p22 = hilditchApply.getRaster().getPixel(x,y-1,p22);
-//                    p44 = hilditchApply.getRaster().getPixel(x+1,y,p44);
-//                    p66 = hilditchApply.getRaster().getPixel(x,y+1,p66);
-//                    p88 = hilditchApply.getRaster().getPixel(x-1,y,p88);
-//
-//                    int p1 = p11[0];
-//                    int p2 = p22[0];
-//                    int p4 = p44[0];
-//                    int p6 = p66[0];
-//                    int p8 = p88[0];
-
-
-//                    int[] getRGBP = captureRGBhilditch(x,y, hilditchApply);
-//                    int[] getRGBP2 = captureRGBhilditch(x,y-1,hilditchApply);
-//                    int[] getRGBP4 = captureRGBhilditch(x+1,y,hilditchApply);
-//                    int[] getRGBP6 = captureRGBhilditch(x,y+1,hilditchApply);
-//                    int[] getRGBP8 = captureRGBhilditch(x-1,y,hilditchApply);
-//
-//                    Integer p1 = (getRGBP[0] + getRGBP[1] + getRGBP [2])/3;
-//                    Integer p2 = (getRGBP2[0] + getRGBP2[1] + getRGBP2 [2])/3;
-//                    Integer p4 = (getRGBP4[0] + getRGBP4[1] + getRGBP4 [2])/3;
-//                    Integer p6 = (getRGBP6[0] + getRGBP6[1] + getRGBP6 [2])/3;
-//                    Integer p8 = (getRGBP8[0] + getRGBP8[1] + getRGBP8 [2])/3;
 
                     int p2 = 0;
                     int p4 = 0;
@@ -236,104 +143,17 @@ public class MathematicalMorphology extends Menu{
                 }
             }
 
-//            System.out.println(count);
-
             for(int k =0; k < trocarX.size(); k++){
-//                System.out.println("entrou");
                 image[trocarY.get(k)][trocarX.get(k)] = 0;
             }
 
-//            System.out.println(count);
-
         }
-
-//        for(int y=0; y< image.length; y++){
-//            for(int x=0; x< image[y].length; x++){
-//                System.out.print(image[y][x]);
-//            }
-//            System.out.println();
-//        }
-
-
-//        for(int y = 1; y < hilditchApply.getHeight()-1; y++){
-//            for(int x = 1; x < hilditchApply.getWidth()-1; x++){
-//                int[] getRGBP = captureRGB(x,y);
-//                Integer p1 = (getRGBP[0] + getRGBP[1] + getRGBP [2])/3;
-//                if(p1 ==1)
-//                    hilditchApply.setRGB(x,y,joinRGB(new int[]{255,255,255}));
-//            }
-//        }
-//        BufferedImage img =  new BufferedImage(Constants.alteredImage.getWidth(), Constants.alteredImage.getHeight(), BufferedImage.TYPE_INT_RGB);
-//
-//        img.getGraphics().setColor(Constants.myPanelImg.getBackground());
-//        img.getGraphics().fillRect(0,0,img.getWidth(),img.getHeight());
-//
-//        Graphics2D g = (Graphics2D) Constants.myPanelImg.getGraphics();
-//        g.drawImage(img, 580, 175, 500, 360, null);
-//        g.drawImage(hilditchApply, 580, 175, 500, 360, null);
-//        for(int y=0; y< image.length; y++){
-//            for(int x=0; x< image[y].length; x++){
-//                System.out.print(image[y][x]);
-//            }
-//            System.out.println();
-//        }
-//
         saveANDraw(copyBinaryToImage(hilditchApply,image));
-//
-
-
-
-
     };
 
+    //I see the black neighbors and return the amount
     public int b1(int y, int x, int[][] image){
         Integer count = 0;
-
-//        int[] getRGBP2 = captureRGBhilditch(x,y-1,image);
-//        int[] getRGBP3 = captureRGBhilditch(x+1,y-1,image);
-//        int[] getRGBP4 = captureRGBhilditch(x+1,y,image);
-//        int[] getRGBP5 = captureRGBhilditch(x+1,y+1,image);
-//        int[] getRGBP6 = captureRGBhilditch(x,y+1,image);
-//        int[] getRGBP7 = captureRGBhilditch(x-1,y+1,image);
-//        int[] getRGBP8 = captureRGBhilditch(x-1,y,image);
-//        int[] getRGBP9 = captureRGBhilditch(x-1,y-1,image);
-//
-//        Integer p2 = (getRGBP2[0] + getRGBP2[1] + getRGBP2 [2])/3;
-//        Integer p3 = (getRGBP3[0] + getRGBP3[1] + getRGBP3 [2])/3;
-//        Integer p4 = (getRGBP4[0] + getRGBP4[1] + getRGBP4 [2])/3;
-//        Integer p5 = (getRGBP5[0] + getRGBP5[1] + getRGBP5 [2])/3;
-//        Integer p6 = (getRGBP6[0] + getRGBP6[1] + getRGBP6 [2])/3;
-//        Integer p7 = (getRGBP7[0] + getRGBP7[1] + getRGBP7 [2])/3;
-//        Integer p8 = (getRGBP8[0] + getRGBP8[1] + getRGBP8 [2])/3;
-//        Integer p9 = (getRGBP9[0] + getRGBP9[1] + getRGBP9 [2])/3;
-
-//        int[] p22 = new int[1];
-//        int[] p33 = new int[1];
-//        int[] p44 = new int[1];
-//        int[] p55 = new int[1];
-//        int[] p66 = new int[1];
-//        int[] p77 = new int[1];
-//        int[] p88 = new int[1];
-//        int[] p99 = new int[1];
-//
-//
-//        p22 = image.getRaster().getPixel(x,y-1,p22);
-//        p33 = image.getRaster().getPixel(x+1,y-1,p33);
-//        p44 = image.getRaster().getPixel(x+1,y,p44);
-//        p55 = image.getRaster().getPixel(x+1,y+1,p55);
-//        p66 = image.getRaster().getPixel(x,y+1,p66);
-//        p77 = image.getRaster().getPixel(x-1,y+1,p77);
-//        p88 = image.getRaster().getPixel(x-1,y,p88);
-//        p99 = image.getRaster().getPixel(x-1,y-1,p99);
-//
-//        int p2 = p22[0];
-//        int p3 = p33[0];
-//        int p4 = p44[0];
-//        int p5 = p55[0];
-//        int p6 = p66[0];
-//        int p7 = p77[0];
-//        int p8 = p88[0];
-//        int p9 = p99[0];
 
         int p2 = getBinary(y-1,x,image);
         int p3 = getBinary(y-1,x+1,image);
@@ -344,7 +164,6 @@ public class MathematicalMorphology extends Menu{
         int p8 = getBinary(y,x-1,image);
         int p9 = getBinary(y-1,x-1,image);
 
-//        count = p2+p3+p4+p5+p6+p7+p8+p9;
         if(p2 == 0){
             count++;
         }
@@ -373,54 +192,10 @@ public class MathematicalMorphology extends Menu{
         return count;
     }
 
+
+//    I see the difference from black to white in the kernel and return the amount
     public int p1(int y, int x,int[][] image){
         Integer count = 0;
-
-//            int[] getRGBP2 = captureRGBhilditch(x,y-1,image);
-//            int[] getRGBP3 = captureRGBhilditch(x+1,y-1,image);
-//            int[] getRGBP4 = captureRGBhilditch(x+1,y,image);
-//            int[] getRGBP5 = captureRGBhilditch(x+1,y+1,image);
-//            int[] getRGBP6 = captureRGBhilditch(x,y+1,image);
-//            int[] getRGBP7 = captureRGBhilditch(x-1,y+1,image);
-//            int[] getRGBP8 = captureRGBhilditch(x-1,y,image);
-//            int[] getRGBP9 = captureRGBhilditch(x-1,y-1,image);
-//
-//            Integer p2 = (getRGBP2[0] + getRGBP2[1] + getRGBP2 [2])/3;
-//            Integer p3 = (getRGBP3[0] + getRGBP3[1] + getRGBP3 [2])/3;
-//            Integer p4 = (getRGBP4[0] + getRGBP4[1] + getRGBP4 [2])/3;
-//            Integer p5 = (getRGBP5[0] + getRGBP5[1] + getRGBP5 [2])/3;
-//            Integer p6 = (getRGBP6[0] + getRGBP6[1] + getRGBP6 [2])/3;
-//            Integer p7 = (getRGBP7[0] + getRGBP7[1] + getRGBP7 [2])/3;
-//            Integer p8 = (getRGBP8[0] + getRGBP8[1] + getRGBP8 [2])/3;
-//            Integer p9 = (getRGBP9[0] + getRGBP9[1] + getRGBP9 [2])/3;
-
-//            int[] p22 = new int[1];
-//            int[] p33 = new int[1];
-//            int[] p44 = new int[1];
-//            int[] p55 = new int[1];
-//            int[] p66 = new int[1];
-//            int[] p77 = new int[1];
-//            int[] p88 = new int[1];
-//            int[] p99 = new int[1];
-//
-//
-//            p22 = image.getRaster().getPixel(x,y-1,p22);
-//            p33 = image.getRaster().getPixel(x+1,y-1,p33);
-//            p44 = image.getRaster().getPixel(x+1,y,p44);
-//            p55 = image.getRaster().getPixel(x+1,y+1,p55);
-//            p66 = image.getRaster().getPixel(x,y+1,p66);
-//            p77 = image.getRaster().getPixel(x-1,y+1,p77);
-//            p88 = image.getRaster().getPixel(x-1,y,p88);
-//            p99 = image.getRaster().getPixel(x-1,y-1,p99);
-//
-//            int p2 = p22[0];
-//            int p3 = p33[0];
-//            int p4 = p44[0];
-//            int p5 = p55[0];
-//            int p6 = p66[0];
-//            int p7 = p77[0];
-//            int p8 = p88[0];
-//            int p9 = p99[0];
 
             int p2 = getBinary(y-1,x,image);
             int p3 = getBinary(y-1,x+1,image);
@@ -454,6 +229,7 @@ public class MathematicalMorphology extends Menu{
     }
 
 
+//    converts the RGB image to binary
     public static int[][] copyImageToBinary(BufferedImage image) {
         int[][] imageData = new int[image.getHeight()][image.getWidth()];
         for (int y = 0; y < imageData.length; y++) {
@@ -470,6 +246,8 @@ public class MathematicalMorphology extends Menu{
         return imageData;
     }
 
+
+//    convert the binary image to rgb
     public BufferedImage copyBinaryToImage(BufferedImage image, int[][] imageData) {
         for (int y = 0; y < imageData.length; y++) {
             for (int x = 0; x < imageData[y].length; x++) {
@@ -485,6 +263,8 @@ public class MathematicalMorphology extends Menu{
         }
         return image;
     }
+
+    //returns the pixel value if it does not exist (edge) returns 1
     public int getBinary(int y, int x,int[][] binary) {
         try {
             return binary[y][x];

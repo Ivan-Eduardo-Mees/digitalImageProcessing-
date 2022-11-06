@@ -38,35 +38,39 @@ public class Transformation extends Menu{
         double[][] matrixMirroring = new double[][]{};
 
         switch (contMirroring) {
-            case 0 -> {
+            case 0: {
                 matrixMirroring = new double[][]{{-1, 0, Constants.alteredImage.getWidth()},
-                                                 {0, 1, 0},
-                                                 {0, 0, 1}};
+                        {0, 1, 0},
+                        {0, 0, 1}};
                 System.out.println("0");
                 contMirroring++;
+                break;
             }
-            case 1 -> {
+            case 1: {
                 matrixMirroring = new double[][]{{1, 0, 0},
                         {0, -1, Constants.alteredImage.getHeight()},
                         {0, 0, 1}};
 
                 contMirroring++;
                 System.out.println("1");
+                break;
             }
-            case 2 -> {
+            case 2: {
 
                 matrixMirroring = new double[][]{{-1, 0, Constants.alteredImage.getWidth()},
                                                     {0, 1, 0},
                                                     {0, 0, 1}};
                 contMirroring++;
                 System.out.println("2");
+                break;
             }
-            case 3 -> {
+            case 3: {
                 matrixMirroring = new double[][]{{-1, 0, Constants.alteredImage.getWidth()},
                                                  {0, -1, Constants.alteredImage.getHeight()},
                                                  {0, 0, 1}};
                 contMirroring = 0;
                 System.out.println("3");
+                break;
             }
         }
 
